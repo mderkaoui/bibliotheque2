@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="info" name="MyApp" packages="">
+  <Appenders>
+    <!--  support pour écrire dans un fichier -->
+    <RollingFile name="myRollingFile1" fileName="app.log"
+                 filePattern="$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="250 MB" />
+      </Policies>
+    </RollingFile>
+    <!--  support pour écrire dans la console -->
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout pattern="%m%n"/>
+    </Console>
+  </Appenders>
+  
+  <Loggers>
+    <!--  un logger principal qui redirige vers les 2 appenders -->
+    <Root level="info">
+      <AppenderRef ref="STDOUT" />
+      <AppenderRef ref="myRollingFile1" />
+    </Root>
+    
+  </Loggers>
+</Configuration>
